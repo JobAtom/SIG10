@@ -1,0 +1,1 @@
+#train data useing CRF based on HMM states
