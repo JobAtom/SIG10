@@ -55,6 +55,7 @@ class TexPas:
         for filename in filenames:
             fid = open(filename, 'r')
             for line in fid:
+                #print('read trc file...')
                 temp = re.split('\s+', line)
                 if temp[0] == '1':
                     start = True
@@ -151,19 +152,20 @@ class TexPas:
 
 def main():
 
-    x = TexPas('Michelle', 0.01)
-    Texfilenames = ['C:/Users/CGML/Desktop/WorkSpace/sound/Day1-Michelle-Shenae-Trial001-Audio.TextGrid']
+    x = TexPas('Jonathan', 0.13)
+    Texfilenames = ['C:/Users/CGML/Desktop/WorkSpace/sound/men/Day2-Jonathan-Stephen-Trial005-Audio.TextGrid']
 
+    #Trcfilenames = [
+    #    'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial001-Mocap-withfingers-Jonathan.trc']
+    #Trcfilenames = [r'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial002-Mocap-withfingers_Jonathan.trc']
+    #Trcfilenames = ['C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial003-1-40653-withfingers_Jonathan.trc']
+    #Trcfilenames = ['C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial004_Mocap_withfingers_Jonathan.trc']
     Trcfilenames = [
-        'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day1-Michelle-Shenae-Trial001-Mocap-withfingers-Michelle.trc']
-    #Trcfilenames = ['C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day1-Michelle-Shenae-Trial002_1_86789_withfingers_Michelle.trc']
-    #Trcfilenames = ['C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day1-Michelle-Shenae-Trial003-Mocap_withfingers_Michelle.trc']
+        'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial005_1_35777_withfingers_Jonathan.trc']
     #Trcfilenames = [
-    #   'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day1-Michelle-Shenae-Trial004_1_end_withfingers_Michelle.trc']
+    #    'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial006-Mocap-withfingers-Jonathan.trc']
     #Trcfilenames = [
-    #    'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day1-Michelle-Shenae-Trial005_Mocap_withfingers_Michelle.trc']
-    #Trcfilenames = [
-    #    'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day1-Michelle-Shenae-Trial006_Mocap_withfingers_Michelle.trc']
+    #    'C:/Users/CGML/Desktop/WorkSpace/twopartytrc/Day2-Jonathan-Stephen-Trial007-Mocap-withfingers-Jonathan.trc']
 
     if len(Texfilenames) != len(Trcfilenames) :
         print(' Text file number should equal to Trc file number')
@@ -174,7 +176,7 @@ def main():
     x.getFinal()
     #print(x.finalResult)
 
-    wfile = open('result1.txt', 'w')
+    wfile = open('result5.txt', 'w')
     for item in x.finalResult:
         wfile.write("%s\n" % item)
     wfile.close()
@@ -184,7 +186,7 @@ def main():
     # define threshold for hand velocity
     VT = 200
     # output segmentation time to file
-    wfile = open('SegTime01.txt', 'w')
+    wfile = open('SegTime05.txt', 'w')
     hfile = open('handsSpeed.txt','w')
     for items in x.finalResult:
         startF = items[0][0]
@@ -224,7 +226,7 @@ def main():
     wfile.close()
     hfile.close()
 
-    ffile = open('trainData01.txt', 'w')
+    ffile = open('trainData05.txt', 'w')
 
 #write final features to text
     countRe = 0

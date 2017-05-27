@@ -7,7 +7,7 @@ from time import time
 
 
 def readTxT(frameData):
-    fid=open('SegTime01.txt','r')
+    fid=open('SegTime05.txt','r')
     for line in fid:
         temp = re.split('\s+',line)
         tempFrame = []
@@ -20,7 +20,7 @@ def readTxT(frameData):
     fid.close()
 
 def OpenVideo(frameData):
-    filename = r'c:\Users\CGML\Desktop\videodata\MichelleTrial001.mp4'
+    filename = r'c:\Users\CGML\Desktop\videodata\TwoPartyJonathanTrial005.mp4'
     cap = cv2.VideoCapture(filename)
     fps = cap.get(cv2.CAP_PROP_FPS)
     #print(fps)
@@ -46,10 +46,10 @@ def OpenVideo(frameData):
     if 3 in startData:
         print('have 3')
     pygame.mixer.init()
-    pygame.mixer.music.load(r"Day1-Michelle-Shenae-Trial001-Audio.mp3")
+    pygame.mixer.music.load(r"Day2-Jonathan-Stephen-Trial005-Audio.mp3")
 
     startPlay = False
-    DelayTime = 0.01
+    DelayTime = 0.13
     DelayFrame = round(0.0*29.97)
 
 

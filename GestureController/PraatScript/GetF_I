@@ -1,0 +1,90 @@
+
+form Pitch listing by specific interval value  
+ comment Supply the interval for listing 
+ positive It(sec) 0.01
+ comment Which tier of the TextGrid object would you like to analyse?
+ integer Tier 1
+endform
+
+
+soundname$ = "Day1-Michelle-Shenae-Trial002-Audio"
+sound = Read from file: "C:\Users\CGML\Desktop\WorkSpace\sound\Day1-Michelle-Shenae-Trial002-Audio.wav"
+
+
+select Sound 'soundname$'
+To Pitch... 0.01 50 2000
+select Sound 'soundname$'
+To Intensity... 10 0.01
+select Intensity 'soundname$'
+To IntensityTier (valleys)
+
+
+#selectObject: "TextGrid Day1-Michelle-Shenae-Trial002-Audio"
+#select TextGrid 'soundname$'
+
+tGrid = Read from file: "C:\Users\CGML\Desktop\WorkSpace\sound\Day1-Michelle-Shenae-Trial002-Audio.TextGrid"
+totalDuration = Get total duration
+writeInfoLine:"Total duration: ", fixed$(totalDuration, 2), " seconds"
+
+filedelete soundresult02.txt
+filedelete soundSeg02.txt
+
+name$ = Get tier name... tier
+numberOfIntervals1 = Get number of intervals... tier
+appendInfoLine: tab$ , "Tier 1: """, name$, """" 
+appendInfoLine: numberOfIntervals1
+
+count = 0.0
+
+for interval from 1 to numberOfIntervals1
+	label$ = Get label of interval... tier interval
+	if label$ <> ""
+		fileappend result.txt 'count''newline$'
+		count+=1
+		start = Get starting point... tier interval
+		end = Get end point... tier interval
+		select IntensityTier 'soundname$'
+		sp = Get nearest index from time... start
+		ep = Get nearest index from time... end
+		curT = sp + 1
+		lastT = start
+		seg = 0
+		while curT <= ep
+			timeC = Get time from index... curT
+			if timeC > end || curT == ep
+				timeC = end
+			endif
+			dur = timeC - lastT
+			#calculate F
+			select Intensity 'soundname$'
+			fvalue = Get mean: lastT, timeC, "dB"
+			#calculate I 
+			select Pitch 'soundname$'
+			ivalue = Get mean: lastT, timeC, "Hertz"
+			if ivalue == undefined
+				ivalue = 0.0
+			endif
+			lastT = timeC
+			curT += 1
+			select IntensityTier 'soundname$'
+			#write a segmentation's reslut to file
+			fileappend soundresult02.txt 'fvalue' 'ivalue' 'dur''newline$'
+			#if timeC != end
+			fileappend soundSeg02.txt 'timeC' 
+				#seg = 1
+			#endif
+			#if timeC == end && seg == 0
+				#fileappend soundSeg02.txt 0
+			#endif
+		endwhile
+		#finish one sentence
+		fileappend soundresult02.txt 'newline$'
+		fileappend soundSeg02.txt 'newline$'
+		appendInfoLine: label$
+	endif
+	select TextGrid 'soundname$'
+endfor
+
+
+
+
